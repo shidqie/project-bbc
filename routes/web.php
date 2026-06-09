@@ -22,6 +22,11 @@ Route::get('/contact', [\App\Http\Controllers\PublicController::class, 'contact'
 // TRD: Kasir ✓ (dashboard kasir), Manager ✓, Pemilik ✓
 Route::middleware('auth')->get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+// ─── Member Dashboard (Konsumen) ──────────────────────────────────────────────
+Route::middleware(['auth', 'role:konsumen'])->group(function () {
+    Route::get('/member/dashboard', [\App\Http\Controllers\MemberController::class, 'dashboard'])->name('member.dashboard');
+});
+
 // ─── Profile (semua role) ─────────────────────────────────────────────────────
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

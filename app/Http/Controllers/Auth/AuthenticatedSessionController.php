@@ -37,6 +37,8 @@ class AuthenticatedSessionController extends Controller
             $url = route('manager.dashboard', absolute: false);
         } elseif ($request->user()->role === 'pemilik') {
             $url = route('pemilik.dashboard', absolute: false);
+        } elseif ($request->user()->role === 'konsumen') {
+            $url = route('public.home', absolute: false);
         }
 
         return redirect()->intended($url);

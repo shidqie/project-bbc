@@ -90,6 +90,9 @@ class PublicController extends Controller
             ['no_hp' => $request->telepon],
             ['nama' => $request->nama, 'alamat' => $request->alamat]
         );
+        if (auth()->check() && !$pelanggan->user_id) {
+            $pelanggan->update(['user_id' => auth()->id()]);
+        }
 
         $paket      = PaketCatering::findOrFail($request->paket_catering_id);
         if (isset($paket->minimum_order) && $request->qty < $paket->minimum_order) {
@@ -134,6 +137,9 @@ class PublicController extends Controller
             ['no_hp' => $request->telepon],
             ['nama' => $request->nama, 'alamat' => $request->alamat]
         );
+        if (auth()->check() && !$pelanggan->user_id) {
+            $pelanggan->update(['user_id' => auth()->id()]);
+        }
 
         $paket   = PaketNasibox::findOrFail($request->paket_nasibox_id);
         $pesanan = PesananNasibox::create([

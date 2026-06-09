@@ -84,9 +84,24 @@
                 @endforeach
             </ul>
             <div class="d-flex gap-2 align-items-center">
-                <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold">
-                    <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                </a>
+                @auth
+                    @if(auth()->user()->role === 'konsumen')
+                        <a href="{{ route('member.dashboard') }}" class="btn btn-outline-success btn-sm rounded-pill px-3 fw-bold">
+                            <i class="bi bi-person-circle me-1"></i>Pesanan Saya
+                        </a>
+                    @else
+                        <a href="{{ route('dashboard') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
+                            <i class="bi bi-speedometer2 me-1"></i>Admin Panel
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                    </a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
+                        <i class="bi bi-person-plus me-1"></i>Daftar
+                    </a>
+                @endauth
                 <a href="{{ route('public.order.catering') }}" class="btn btn-bbc btn-sm rounded-pill px-4">
                     <i class="bi bi-bag-plus me-1"></i>Pesan Catering
                 </a>
